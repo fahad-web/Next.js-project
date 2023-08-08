@@ -21,7 +21,7 @@ const AdminLogIn = () => {
     event.preventDefault()
 
     try {
-      const response = await axios.post('http://localhost:3000/admin/login', { email, password });
+      const response = await axios.post(process.env.NEXT_PUBLIC_MAIN_URL+'/login', {email, password });
       console.log("res: "+response.data)
       alert("Log in Successful")
       router.push('/admin/admin_profile');

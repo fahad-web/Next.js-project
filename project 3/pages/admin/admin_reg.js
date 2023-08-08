@@ -30,7 +30,7 @@ const AdminReg =  () => {
   
   try {
 
-    const response = await axios.post('http://localhost:3000/admin/register', user, {
+    const response = await axios.post(process.env.NEXT_PUBLIC_MAIN_URL+'/register', user, {
 
       headers: {
 

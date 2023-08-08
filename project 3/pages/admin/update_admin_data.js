@@ -33,7 +33,7 @@ const UpdateAdmin = () => {
   
   try {
 
-    const response = await axios.put('http://localhost:3000/admin/updateadmininfo', user, {
+    const response = await axios.put(process.env.NEXT_PUBLIC_MAIN_URL+'/updateadmininfo', user, {
 
       headers: {
 

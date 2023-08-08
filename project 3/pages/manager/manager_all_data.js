@@ -3,7 +3,7 @@ import Meta from "../meta";
 import axios from "axios";
 import { useState , useEffect} from "react";
 
-const ManagerAllData =  ( ) => {
+const ManagerAllData =  () => {
 
   const [jsonData, setJsonData] = useState([]);
 
@@ -13,13 +13,11 @@ const ManagerAllData =  ( ) => {
     }, []);
     
 
-    const deleteData = async (managerId,req) => {
+    const deleteData = async (managerId) => {
       try {
-
-        const managerId = req.qury.id;
-        // console.log(managerId)
-      const response = await axios.delete('http://localhost:3000/admin/delete/manager/${managerId}');
-      console.log(response);
+        const managerId = window.prompt("Enter Manager ID :");
+        const response = await axios.delete(process.env.NEXT_PUBLIC_MAIN_URL+'/delete/manager/'+managerId);
+        console.log(response);
       } catch (error) {
       console.error(error);
       }
@@ -27,7 +25,7 @@ const ManagerAllData =  ( ) => {
 
   const loadAllData = async () =>{
     try{
-      const respons = await axios.get('http://localhost:3000/admin/allmanager');
+      const respons = await axios.get(process.env.NEXT_PUBLIC_MAIN_URL+'/allmanager');
       const jsonData = respons.data;
       setJsonData(jsonData);
       console.log(jsonData);
@@ -62,7 +60,7 @@ const ManagerAllData =  ( ) => {
               Last Name :{item.lastname}<br></br>
               Email : {item.email}<br></br>
               Phone : {item.contact}<br></br>
-              <b>admin info ID : {item.adminID} Number admin add this manager </b><Link href="update_manager"><button type="submit">update</button></Link>  <button type="submit" onClick={deleteData}>Delete</button> <br></br>
+              <b>admin info ID : {item.adminID} Number admin add this manager </b><Link href="update_manager"><button type="submit">update</button></Link>  <button type="submit" onClick={() => deleteData()}>Delete</button> <br></br>
               
               
               <br></br>

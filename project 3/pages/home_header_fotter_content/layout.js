@@ -9,7 +9,7 @@ const MainLayout = ({children}) => {
        <Header/>
        {children}
        <Fotter/>
-      </React.Fragment>
+    </React.Fragment>
   );
 }
 
