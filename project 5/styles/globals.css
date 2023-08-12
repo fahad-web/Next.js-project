@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body,p,span{
+    font-family: 'Roboto', sans-serif;
+}
+h1,h2,h3,h4,h5,h6,a{
+    font-family: 'Rubik', sans-serif;
+}
+
+body {
+    background:#2ecc71 ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: top;
+}
+.text-size-manuali{
+    font-size: 30px !important;
+}
+.h-screen{
+    height: 90vh !important;
+}
+.fullscreenDiv {
+    text-align: center;
+}
+.hh{
+    overflow: hidden;
+    transition-delay: .2s;
+}
+
+.hh2{
+    visibility: hidden;
+    display: inline-block;
+    transition-delay: .2s;
+    display: inline-table;
+    background-color: aliceblue;
+}
+
+.hh:hover .hh2 {
+    visibility: visible; 
+    color: black; 
+}
+.hh:hover{
+    animation: zoom-in 2s ease-in-out ;
+}
+
+.jj{
+    top: 40px;
+    right: 40px;
+    visibility: hidden;
+    transition-delay: .2s;
+   
+}
+.importentt:hover .jj{
+    visibility: visible;
+    
+}
+
+
+
+
+
+@keyframes zoom-in {
+    0% {
+      transform: scale(1, 1);
+    }
+    50% {
+      transform: scale(1.1, 1.1);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+}
