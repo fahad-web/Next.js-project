@@ -1,5 +1,5 @@
 import React from "react";
-import Fotter from "./fotter";
+import Fotter from "./footer";
 import Header from "./header";
 
 

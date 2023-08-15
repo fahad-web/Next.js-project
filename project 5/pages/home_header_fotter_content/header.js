@@ -3,11 +3,10 @@ import React from "react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useEffect } from "react";
+import axios from "axios";
 
 
-
-
-const Header = ({ handleSinout }) => {
+const Header = () => {
 
 
   const [email, setEmail] = useState(null);
@@ -27,28 +26,34 @@ const Header = ({ handleSinout }) => {
 
   }, []);
 
-
-
-  const handleSignOut = async (event) => {
-    event.preventDefault();
+  async function Logout() {
     try {
-      const response = await axios.get(process.env.NEXT_PUBLIC_MAIN_URL + '/signout')
-      console.log(response.data)
-      sessionStorage.removeItem('email');
-      setEmail(null);
-      //router.push('/admin/admin_log');
-    } catch (error) {
-      console.error(error)
-    }
+      const response = await axios.post(process.env.NEXT_PUBLIC_MAIN_URL + '/signout/',
+        null,
+        {
+          withCredentials: true, // Send cookies along with the request
+        }
+      );
 
-  };
+      if (response.status === 201) {
+        sessionStorage.removeItem('email');
+        setEmail(null);
+        document.cookie = ''; // Clear cookies
+        router.push('../admin/admin_log');
+      } else {
+        console.error('Sign-out failed:', response);
+      }
+    } catch (error) {
+      console.error('Sign-out error:', error);
+    }
+  }
+
 
 
 
 
   return (
-    <>
-
+    <React.Fragment>
       <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.css" rel="stylesheet" />
       {email == null ? (
 
@@ -80,7 +85,6 @@ const Header = ({ handleSinout }) => {
                   <Link href="/about" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</Link>
                 </li>
                 <li>
-
                   <Link href="#" id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class=" text-black bg-orange-100 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 z-10 text-center inline-flex items-center  dark:focus:ring-blue-800" type="button">Information <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
                   </svg></Link>
@@ -100,9 +104,9 @@ const Header = ({ handleSinout }) => {
                       <li>
                         <Link href="/tourguid/tourguid_list" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tour Guid List</Link>
                       </li>
+
                     </ul>
                   </div>
-
                 </li>
                 <li>
                   <Link href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Pricing</Link>
@@ -118,7 +122,7 @@ const Header = ({ handleSinout }) => {
 
 
       ) : (
-        <nav class="bg-orange-100 border-gray-200 dark:bg-gray-900">
+        <nav class=" bg-orange-100 border-gray-200 dark:bg-gray-900">
           <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <Link href="#" class="flex items-center">
               <img src="https://img.freepik.com/premium-vector/travel-blog-logo-using-pen-plane-as-negative-space_560919-194.jpg" class="h-8 mr-3" alt="Flowbite Logo" />
@@ -130,24 +134,25 @@ const Header = ({ handleSinout }) => {
                 <img class="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo" />
               </button>
 
-              <div className="z-50 jj absolute  my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
+              <div className="z-50 jj absolute   my-2 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
                 <div class="px-4 py-3">
                   <span class="block text-sm text-gray-900 dark:text-white">MD Fahad</span>
                   <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">{email}</span>
                 </div>
                 <ul class="py-2" aria-labelledby="user-menu-button">
                   <li>
-                    <Link href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</Link>
+                    <Link href="#" class=" px-4 py-2 text-sm text-center text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</Link>
                   </li>
                   <li>
-                    <Link href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</Link>
+                    <Link href="#" class=" px-4 py-2 text-center text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</Link>
                   </li>
                   <li>
-                    <Link href="update_admin_data" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Update</Link>
+                    <Link href="update_admin_data" class=" text-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Update</Link>
                   </li>
                   <li>
-                    <Link href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</Link>
+                    <button onClick={Logout} class="bts block w-40 text-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</button>
                   </li>
+
                 </ul>
               </div>
               <button data-collapse-toggle="navbar-user" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-user" aria-expanded="false">
@@ -205,7 +210,7 @@ const Header = ({ handleSinout }) => {
       <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
 
-    </>
+    </React.Fragment>
   )
 }
 export default Header;

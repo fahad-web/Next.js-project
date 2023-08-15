@@ -1,12 +1,15 @@
 import Link from "next/link";
 import Meta from "../meta";
+
 import axios from "axios";
 import { useState , useEffect} from "react";
 import SessionCheck from "../component/sessioncheck";
+import { useRouter } from "next/router";
 
 const ManagerAllData =  ({data}) => {
 
   const [jsonData, setJsonData] = useState([]);
+  const router = useRouter();
 
   //  const [email, setEmail] = useState('')
 
@@ -26,19 +29,19 @@ const ManagerAllData =  ({data}) => {
    
     //   }, []);
 
-    const deleteData = async () => {
-      try {
-        const managerId = window.prompt("Enter Manager ID :");
-        const response = await axios.delete(process.env.NEXT_PUBLIC_MAIN_URL+'/delete/manager/'+managerId);
-        console.log(response);
-      } catch (error) {
-      console.error(error);
-      }
-    }
+    // const deleteData = async () => {
+    //   try {
+    //     const managerId = window.prompt("Enter Manager ID :");
+    //     const response = await axios.delete(process.env.NEXT_PUBLIC_MAIN_URL+'/delete/manager/'+managerId);
+    //     console.log(response);
+    //   } catch (error) {
+    //   console.error(error);
+    //   }
+    // }
 
   const loadAllData = async () =>{
     try{
-      const respons = await axios.get(process.env.NEXT_PUBLIC_MAIN_URL+'/allmanager');
+      const respons = await axios.get(process.env.NEXT_PUBLIC_MAIN_URL+'/allmanager',{withCredentials:true});
       const jsonData = respons.data;
       setJsonData(jsonData);
       console.log(jsonData);

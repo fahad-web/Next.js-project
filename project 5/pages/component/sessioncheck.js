@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-export default function SessionCheck () {
+export default function SessionCheck() {
   const router = useRouter();
 
   useEffect(() => {
     const session = sessionStorage.getItem('email');
-    if (!session) {
+    if (!session ) {
       router.push('../admin/admin_log');
     }
   }, []);

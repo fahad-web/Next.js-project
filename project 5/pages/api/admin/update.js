@@ -16,5 +16,5 @@ export default async function handler(req, res) {
   // Update the session email
   session.user.email = updatedAdmin.email;
 
-  return res.status(200).json({ message: 'Admin info updated successfully' });
+  return res.status(201).json({ message: 'Admin info updated successfully' });
 }

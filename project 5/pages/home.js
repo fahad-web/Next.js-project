@@ -8,20 +8,10 @@ import Meta from './meta'
 const inter = Inter({ subsets: ['latin'] })
 
 
-
 const Home = () => {
   return (
     <React.Fragment>
       <Meta title="Home Page" keywords="fahad" description ="Fahad" />
-     
-
-          {/* <h1>This is Home Page</h1>
-          <Link href="./admin/admin_profile">Admin Data</Link><br></br>
-          <Link href="./manager/manager_all_data">Manager List</Link><br></br>
-          <Link href="./traveler/traveler_list">Traveler List</Link><br></br>
-          <Link href="./tourguid/tourguid_list">Tourguid List</Link><br></br>
-          <Link href="../payment/payment_h">Show Payment History</Link> */}
-
             <h1 className=' text-lg  font-bold text-size-manuali absolute left-0 right-0 text-center text-white top-20'>Welcome travel blogger website</h1>
 
             <div className='flex justify-center space-x-10 absolute left-0 right-0 top-40'>

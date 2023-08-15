@@ -1,7 +1,7 @@
 import '../styles/globals.css';
 
 
-
+import Header from './home_header_fotter_content/header';
 import MainLayout from './home_header_fotter_content/layout'
 
 export default function App({ Component, pageProps}) {
@@ -9,7 +9,7 @@ export default function App({ Component, pageProps}) {
     <>
     
     <MainLayout>
-    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+    
 
     <Component {...pageProps} />
     </MainLayout>

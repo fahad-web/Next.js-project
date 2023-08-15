@@ -4,7 +4,7 @@ export default function AboutUs(){
     return(
         <>
         <Meta title="About Page" keywords="fahad" description ="Fahad" />
-        <center>
+        <center className="text-white">
             <h3>Travel Bloger</h3>
             <p>As a travel blogger, I'm always excited to share my adventures and experiences with my readers. Traveling allows me to explore new cultures, meet interesting people, and immerse myself in the beauty of diverse landscapes.
 
