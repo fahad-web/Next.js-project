@@ -22,12 +22,35 @@ const AdminReg = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
+  const isValidFastName = (fastname) => {
+    return fastname.length >= 2;
+  }
+  const isValidLastName = (lastname) => {
+    return lastname.length >= 4;
+  }
+  const isValidLastNameM = (lastname) => {
+    const machName = /^[a-zA-Z]+[a-zA-Z]+$/;
+    return machName.test(lastname)
+  }
+
+  
+
+
   const handleSubmit = async (event) => {
     event.preventDefault()
     user.contact = parseInt(user.contact);
     if (!email || !password || !fastname || !lastname || !contact) {
       setError('All Field required');
-    } else {
+    }else if (!isValidFastName(fastname)){
+      setError("Fast Name must be 2 bit")
+    }
+    else if (!isValidLastName(lastname) ){
+      setError(" Name must be 3 bit")
+    }
+    else if (!isValidLastNameM(lastname) ){
+      setError("Last Name not suppourt Number")
+    }
+     else {
       const res = await doSignUp(user)
       console.log(res);
     }
@@ -39,9 +62,9 @@ const AdminReg = () => {
         headers: {
 
           'Content-Type': 'application/json',
-          withCredentials: true
-
-        }
+  
+        },
+        withCredentials: true
 
       });
 
@@ -71,24 +94,24 @@ const AdminReg = () => {
           <h1 className="text-black texts mb-5 mt-5">This is Admin Registration Page</h1>
           <form onSubmit={handleSubmit} className=" text-black ">
             <label className="texts ">Enter first name&nbsp;&nbsp;&nbsp;
-              <input type="text" className="text-xs rounded-lg " id="fastname" name="fastname" onChange={handleChange} value={fastname} />
+              <input type="text"  maxLength="5" className="text-xs rounded-lg " id="fastname" name="fastname" onChange={handleChange} value={fastname} />
             </label><br></br>
 
             <label className="texts">Enter last name&nbsp;&nbsp;&nbsp;&nbsp;
-              <input className=" text-xs mt-2 rounded-lg" type="text" id="lastname" name="lastname" onChange={handleChange} value={lastname} />
+              <input className=" text-xs mt-2 rounded-lg" type="text"   id="lastname" name="lastname" onChange={handleChange} value={lastname} />
             </label><br></br>
             
 
             <label className="texts">Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <input className="mt-2 text-xs rounded-lg" type="email" id="email" name="email" onChange={handleChange} value={email} />
+              <input className="mt-2 text-xs rounded-lg" type="email"  id="email" name="email" onChange={handleChange} value={email} />
             </label><br></br>
 
             <label className="texts">Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <input className="mt-2 text-xs rounded-lg" type="number" id="contact" name="contact" onChange={handleChange} value={contact} />
+              <input className="mt-2 text-xs rounded-lg"  minLength="10" type="number" id="contact" name="contact" onChange={handleChange} value={contact} />
             </label><br></br>
 
             <label className="texts">Password&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <input className="mt-2 text-xs rounded-lg" type="text" id="password" name="password" onChange={handleChange} value={password} />
+              <input className="mt-2 text-xs rounded-lg" type="password"  minLength="4" id="password" name="password" onChange={handleChange} value={password} />
             </label><br></br>
 
 

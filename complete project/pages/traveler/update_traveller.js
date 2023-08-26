@@ -9,6 +9,7 @@ const UpdateTraveller = () => {
 
 
     const router = useRouter();
+    const [error, setError] = useState('');
 
     const [user, setUser] = useState({
         fastname: "",
@@ -25,33 +26,57 @@ const UpdateTraveller = () => {
         setUser({ ...user, [e.target.name]: e.target.value });
     };
 
+    const isValidFastName = (fastname) => {
+        return fastname.length >= 2;
+      }
+      const isValidLastName = (lastname) => {
+        return lastname.length >= 4;
+      }
+      const isValidLastNameM = (lastname) => {
+        const machName = /^[a-zA-Z]+[a-zA-Z]+$/;
+        return machName.test(lastname)
+      }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         user.contact = parseInt(user.contact);
         user.id = parseInt(user.id);
         console.log(user)
+        if (!email || !password || !fastname || !lastname || !contact) {
+            setError('All Field required');
+        } else if (!isValidFastName(fastname)) {
+            setError("Fast Name must be 2 bit")
+        }
+        else if (!isValidLastName(lastname)) {
+            setError(" Name must be 3 bit")
+        }
+        else if (!isValidLastNameM(lastname)) {
+            setError("Last Name not suppourt Number")
+        }
+        else {
 
 
-        try {
+            try {
 
-            const response = await axios.put(process.env.NEXT_PUBLIC_MAIN_URL + '/updatetravelerinfo', user, {
+                const response = await axios.put(process.env.NEXT_PUBLIC_MAIN_URL + '/updatetravelerinfo', user, {
 
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
 
-            });
+                });
 
-            console.log(response.data);
+                console.log(response.data);
 
-            alert("Traveller Update Successful!");
-            //router.push('/admin/admin_log');
+                alert("Traveller Update Successful!");
+                //router.push('/admin/admin_log');
 
-        } catch (error) {
+            } catch (error) {
 
-            console.error('Error Admin Signing Up:', error);
+                console.error('Error Admin Signing Up:', error);
 
-            alert("Traveller Update Failed!");
+                alert("Traveller Update Failed!");
 
+            }
         }
 
     };
@@ -99,7 +124,7 @@ const UpdateTraveller = () => {
                     <input className="mt-2" type="file" name="photoFileName" onChange={handleChange} value={photoFileName} />
                 </label><br></br>
 
-
+                {error && <p className="text-red-700 absolute mt-3 left-0 right-0  mr-auto ">{error}</p>}
                 <button type="submit" className="bts text-center mt-12 focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 w-5/6">Submit</button>
             </form>
             {/* <Link href="manager_all_data">Manager List</Link><br></br><br></br><br></br>

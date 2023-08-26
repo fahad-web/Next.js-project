@@ -12,7 +12,7 @@ const managerData = ({ data }) => {
   const [jsonData, setJsonData] = useState(null);
 
   const router = useRouter();
-  const managerId = router.query.id;
+  const { id } = router.query;
 
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const managerData = ({ data }) => {
   const deleteData = async () => {
     try {
 
-      const response = await axios.delete(process.env.NEXT_PUBLIC_MAIN_URL + '/delete/manager/' + managerId, { withCredentials: true });
+      const response = await axios.delete(process.env.NEXT_PUBLIC_MAIN_URL + '/delete/manager/' + id, { withCredentials: true });
       console.log(response);
       router.push("/manager/manager_all_data")
 
@@ -34,7 +34,7 @@ const managerData = ({ data }) => {
 
   const loadAllData = async () => {
     try {
-      const respons = await axios.get(process.env.NEXT_PUBLIC_MAIN_URL + '/getmanager/' + managerId);
+      const respons = await axios.get(process.env.NEXT_PUBLIC_MAIN_URL + '/getmanager/' + id);
       const jsonData = respons.data;
       setJsonData(jsonData)
       console.log(jsonData)
@@ -89,8 +89,6 @@ const managerData = ({ data }) => {
     }
 
   }
-
-
 
 
   return (

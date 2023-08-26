@@ -92,5 +92,4 @@ const ManagerAllData = ({ data }) => {
   )
 }
 
-export default ManagerAllData
-
+export default ManagerAllData;

@@ -9,6 +9,7 @@ import SessionCheck from "../component/sessioncheck";
 const AddTraveller = () => {
 
     const router = useRouter();
+    const [error, setError] = useState('');
 
     const [user, setUser] = useState({
         fastname: "",
@@ -25,37 +26,62 @@ const AddTraveller = () => {
         setUser({ ...user, [e.target.name]: e.target.value });
     };
 
+    const isValidFastName = (fastname) => {
+        return fastname.length >= 2;
+      }
+      const isValidLastName = (lastname) => {
+        return lastname.length >= 4;
+      }
+      const isValidLastNameM = (lastname) => {
+        const machName = /^[a-zA-Z]+[a-zA-Z]+$/;
+        return machName.test(lastname)
+      }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         user.contact = parseInt(user.contact);
         user.adminID = parseInt(user.adminID);
         console.log(user)
 
+        if (!email || !password || !fastname || !lastname || !contact) {
+            setError('All Field required');
+        } else if (!isValidFastName(fastname)) {
+            setError("Fast Name must be 2 bit")
+        }
+        else if (!isValidLastName(lastname)) {
+            setError(" Name must be 3 bit")
+        }
+        else if (!isValidLastNameM(lastname)) {
+            setError("Last Name not suppourt Number")
+        }
+        else {
 
-        try {
 
-            const response = await axios.post(process.env.NEXT_PUBLIC_MAIN_URL + '/register/traveler', user, {
+            try {
 
-                headers: {
+                const response = await axios.post(process.env.NEXT_PUBLIC_MAIN_URL + '/register/traveler', user, {
 
-                    'Content-Type': 'application/json'
+                    headers: {
 
-                },
-                withCredentials: true
+                        'Content-Type': 'application/json'
 
-            });
+                    },
+                    withCredentials: true
 
-            console.log(response.data);
+                });
 
-            alert("Traveller Add Successful!");
-            //router.push('/admin/admin_log');
+                console.log(response.data);
 
-        } catch (error) {
+                alert("Traveller Add Successful!");
+                //router.push('/admin/admin_log');
 
-            console.error('Error Traveller Signing Up:', error);
+            } catch (error) {
 
-            alert("Traveller Registration Failed!");
+                console.error('Error Traveller Signing Up:', error);
 
+                alert("Traveller Registration Failed!");
+
+            }
         }
     };
 
@@ -98,7 +124,7 @@ const AddTraveller = () => {
                 <label className="texts">Image
                     <input className="mt-3" type="file" name="photoFileName" onChange={handleChange} value={photoFileName} />
                 </label><br></br>
-
+                {error && <p className="text-red-700 absolute mt-3 left-0 right-0  mr-auto ">{error}</p>}
                 <button className="bts text-center mt-14 focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 w-5/6" type="submit">Add</button><br></br><br></br>
 
             </form>
